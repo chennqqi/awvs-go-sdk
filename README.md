@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/chennqqi/awvs-go-sdk.svg?branch=master)](https://travis-ci.org/chennqqi/awvs-go-sdk) [![GoDoc](https://godoc.org/github.com/chennqqi/awvs-go-sdk?status.svg)](https://godoc.org/github.com/chennqqi/awvs-go-sdk)  [![LICENSE](https://img.shields.io/github/license/chennqqi/awvs-go-sdk.svg?style=flat-square)](https://github.com/chennqqi/awvs-go-sdk/blob/master/LICENSE) [![Go Report Card](https://goreportcard.com/badge/github.com/chennqqi/awvs-go-sdk/go)](https://goreportcard.com/report/github.com/chennqqi/awvs-go-sdk)
+[![Build Status](https://travis-ci.org/chennqqi/awvs-go-sdk.svg?branch=master)](https://travis-ci.org/chennqqi/awvs-go-sdk) [![GoDoc](https://godoc.org/github.com/chennqqi/awvs-go-sdk/go?status.svg)](https://godoc.org/github.com/chennqqi/awvs-go-sdk)  [![LICENSE](https://img.shields.io/github/license/chennqqi/awvs-go-sdk.svg?style=flat-square)](https://github.com/chennqqi/awvs-go-sdk/blob/master/LICENSE) [![Go Report Card](https://goreportcard.com/badge/github.com/chennqqi/awvs-go-sdk/go)](https://goreportcard.com/report/github.com/chennqqi/awvs-go-sdk)
 
 # `awvs-go-sdk`
 
