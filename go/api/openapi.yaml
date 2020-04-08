@@ -1,0 +1,984 @@
+openapi: 3.0.0
+info:
+  contact:
+    email: apiteam@swagger.io
+  description: |
+    Awvs12 client api
+    [http://swagger.io](http://swagger.io) or on
+    [irc.freenode.net, #swagger](http://swagger.io/irc/).
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: AWVS12 client api
+  version: 1.0.0
+externalDocs:
+  description: Find out more about Swagger
+  url: http://swagger.io
+servers:
+- description: The production API server
+  url: https://{host}:{port}/{basePath}
+  variables:
+    host:
+      default: localhost
+      description: awvs web host
+    port:
+      default: "10443"
+    basePath:
+      default: /api/v1
+paths:
+  /me/login:
+    post:
+      operationId: login
+      requestBody:
+        $ref: '#/components/requestBodies/Login'
+      responses:
+        default:
+          description: Login failed
+        "204":
+          description: Login success
+      summary: login
+  /me:
+    get:
+      operationId: getMe
+      responses:
+        default:
+          description: Failure
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Me'
+          description: Success
+      summary: get user info
+  /info:
+    get:
+      operationId: getInfo
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Info'
+          description: Success
+        default:
+          description: Failure
+      security:
+      - api_key: []
+      summary: get awvs info
+  /targets:
+    get:
+      operationId: getTargets
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TargetsResp'
+          description: Success
+        default:
+          description: Failure
+      security:
+      - api_key: []
+      summary: get all targets
+    post:
+      operationId: addTarget
+      requestBody:
+        $ref: '#/components/requestBodies/Target'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TargetResp'
+          description: Success
+        default:
+          description: Failure
+      security:
+      - api_key: []
+      summary: Add a new target to the scan list
+  /targets/{targetid}:
+    get:
+      operationId: getTarget
+      parameters:
+      - description: target id
+        explode: false
+        in: path
+        name: targetid
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TargetDetail'
+          description: Success
+        default:
+          description: Faiure
+      security:
+      - api_key: []
+      summary: get target by id
+  /scanning_profiles:
+    get:
+      operationId: getScanProfiles
+      responses:
+        default:
+          description: Failure
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Profiles'
+          description: Success
+      security:
+      - api_key: []
+      summary: get scan profile
+  /scans:
+    get:
+      operationId: getScans
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Scans'
+          description: Success
+        default:
+          description: Failure
+      security:
+      - api_key: []
+      summary: get scan list
+    post:
+      operationId: startScan
+      requestBody:
+        $ref: '#/components/requestBodies/Scan'
+      responses:
+        "201":
+          description: Success
+        default:
+          description: Failure
+      security:
+      - api_key: []
+      summary: start scan by scanid
+  /scans/{scanid}:
+    delete:
+      description: https://github.com/bit4woo/Ashe/blob/master/lib/WVS11.py
+      operationId: deleteScan
+      parameters:
+      - description: scan task id
+        explode: false
+        in: path
+        name: scanid
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "204":
+          description: Success
+        default:
+          description: Failure
+      security:
+      - api_key: []
+      summary: delete scan by scanid
+    get:
+      operationId: getScanStatus
+      parameters:
+      - description: scan task id
+        explode: false
+        in: path
+        name: scanid
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "405":
+          description: Invalid input
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScanDetail'
+          description: 成功并返回session id
+      security:
+      - api_key: []
+      summary: get scan status by scanid
+  /scans/{scanid}/abort:
+    post:
+      operationId: stopScan
+      parameters:
+      - description: scan task id
+        explode: false
+        in: path
+        name: scanid
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        default:
+          description: Failure
+        "204":
+          description: Success
+      security:
+      - api_key: []
+      summary: stop scan by scanid
+  /scans/{scanid}/results/{sessionid}/statistics:
+    get:
+      operationId: getStat
+      parameters:
+      - description: scan task id
+        explode: false
+        in: path
+        name: scanid
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: scan session id
+        explode: false
+        in: path
+        name: sessionid
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        default:
+          description: Failure
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScanStat'
+          description: Success
+      security:
+      - api_key: []
+      summary: get stat by scanid,sessionid
+  /scans/{scanid}/results/{sessionid}/vulnerabilities:
+    get:
+      operationId: getVuln
+      parameters:
+      - description: scan task id
+        explode: false
+        in: path
+        name: scanid
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      - description: scan session id
+        explode: false
+        in: path
+        name: sessionid
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        default:
+          description: Faiure
+        "200":
+          description: Success
+      security:
+      - api_key: []
+      summary: get results by scanid,sessionid
+  /reports/{scanid}:
+    get:
+      operationId: getScanReports
+      parameters:
+      - description: scan task id
+        explode: false
+        in: path
+        name: scanid
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "200":
+          description: Invalid input
+      security:
+      - api_key: []
+      summary: get scan reports by scanid
+components:
+  parameters:
+    ScanId:
+      description: scan task id
+      explode: false
+      in: path
+      name: scanid
+      required: true
+      schema:
+        format: uuid
+        type: string
+      style: simple
+    SessionId:
+      description: scan session id
+      explode: false
+      in: path
+      name: sessionid
+      required: true
+      schema:
+        type: string
+      style: simple
+    TargetId:
+      description: target id
+      explode: false
+      in: path
+      name: targetid
+      required: true
+      schema:
+        format: uuid
+        type: string
+      style: simple
+  requestBodies:
+    Login:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/LoginReq'
+      description: login parameter
+      required: true
+    Target:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Target'
+      description: target parameter
+      required: true
+    Scan:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Scan'
+      description: target response
+      required: true
+  schemas:
+    License:
+      example:
+        features:
+        - features
+        - features
+        expires: expires
+        access: true
+        expired: true
+        product_code: product_code
+        actived: true
+        email: email
+        limits:
+          standard_targets: 6
+          engines: 1
+          demo_targets: 0
+          users: 5
+        license_key: license_key
+        maintenance_expires: maintenance_expires
+        maintenance_expired: true
+      properties:
+        access:
+          type: boolean
+        actived:
+          type: boolean
+        email:
+          format: email
+          type: string
+        expired:
+          type: boolean
+        expires:
+          format: datetime
+          type: string
+        features:
+          items:
+            type: string
+          type: array
+        limits:
+          $ref: '#/components/schemas/LicenseLimit'
+        license_key:
+          type: string
+        maintenance_expired:
+          type: boolean
+        maintenance_expires:
+          format: datetime
+          type: string
+        product_code:
+          type: string
+      required:
+      - access
+      - activated
+      - email
+      - expired
+      - expires
+      type: object
+    Profile:
+      example:
+        profile_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        custom: true
+        name: name
+        sort_order: 0
+      properties:
+        custom:
+          type: boolean
+        name:
+          type: string
+        profile_id:
+          format: uuid
+          type: string
+        sort_order:
+          format: int64
+          type: integer
+      type: object
+    Profiles:
+      example:
+        scanning_profiles:
+        - profile_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          custom: true
+          name: name
+          sort_order: 0
+        - profile_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          custom: true
+          name: name
+          sort_order: 0
+      properties:
+        scanning_profiles:
+          items:
+            $ref: '#/components/schemas/Profile'
+          type: array
+      type: object
+    LicenseExtra:
+      example:
+        extra_user_count: 2
+        can_create_new_std_target: true
+        unique_std_target_count: 7
+        can_create_new_demo_target: true
+        user_count: 9
+        target_deletion_allowance: '{}'
+        extra_std_target_count: 5
+        can_create_new_user: true
+      properties:
+        extra_std_target_count:
+          format: int64
+          type: integer
+        extra_user_count:
+          format: int64
+          type: integer
+        can_create_new_std_target:
+          type: boolean
+        can_create_new_demo_target:
+          type: boolean
+        can_create_new_user:
+          type: boolean
+        target_deletion_allowance:
+          format: int64
+          type: object
+        unique_std_target_count:
+          format: int64
+          type: integer
+        user_count:
+          format: int64
+          type: integer
+      required:
+      - can_create_new_std_target
+      - extra_std_target_count
+      - target_deletion_allowance
+      - user_count
+      type: object
+    UpdateInfo:
+      example:
+        new_update: true
+        update_status: update_status
+        major_version: major_version
+        build_number: build_number
+        minor_version: minor_version
+      properties:
+        build_number:
+          type: string
+        major_version:
+          type: string
+        minor_version:
+          type: string
+        new_update:
+          type: boolean
+        update_status:
+          type: string
+      required:
+      - build_number
+      - major_version
+      - minor_version
+      - new_update
+      type: object
+    LicenseLimit:
+      example:
+        standard_targets: 6
+        engines: 1
+        demo_targets: 0
+        users: 5
+      properties:
+        demo_targets:
+          type: integer
+        standard_targets:
+          type: integer
+        engines:
+          type: integer
+        users:
+          type: integer
+      type: object
+    Info:
+      example:
+        license:
+          features:
+          - features
+          - features
+          expires: expires
+          access: true
+          expired: true
+          product_code: product_code
+          actived: true
+          email: email
+          limits:
+            standard_targets: 6
+            engines: 1
+            demo_targets: 0
+            users: 5
+          license_key: license_key
+          maintenance_expires: maintenance_expires
+          maintenance_expired: true
+        acumonitor: true
+        major_version: major_version
+        license_extra:
+          extra_user_count: 2
+          can_create_new_std_target: true
+          unique_std_target_count: 7
+          can_create_new_demo_target: true
+          user_count: 9
+          target_deletion_allowance: '{}'
+          extra_std_target_count: 5
+          can_create_new_user: true
+        update_info:
+          new_update: true
+          update_status: update_status
+          major_version: major_version
+          build_number: build_number
+          minor_version: minor_version
+        build_number: build_number
+        minor_version: minor_version
+      properties:
+        acumonitor:
+          type: boolean
+        build_number:
+          type: string
+        license:
+          $ref: '#/components/schemas/License'
+        license_extra:
+          $ref: '#/components/schemas/LicenseExtra'
+        major_version:
+          type: string
+        minor_version:
+          type: string
+        update_info:
+          $ref: '#/components/schemas/UpdateInfo'
+      type: object
+    LoginReq:
+      example:
+        password: password
+        logout_previous: true
+        remember_me: true
+        email: email
+      properties:
+        email:
+          type: string
+        password:
+          description: sha256(password)
+          type: string
+        remember_me:
+          type: boolean
+        logout_previous:
+          type: boolean
+      required:
+      - email
+      - password
+      type: object
+    Me:
+      example:
+        firstname: firstname
+        su: true
+        user_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        email: email
+        enabled: true
+      properties:
+        email:
+          format: email
+          type: string
+        enabled:
+          type: boolean
+        firstname:
+          type: string
+        user_id:
+          format: uuid
+          type: string
+        su:
+          type: boolean
+      required:
+      - email
+      - enabled
+      - firstname
+      - su
+      - user_id
+      type: object
+    Target:
+      example:
+        address: address
+        criticality: 0
+        description: description
+        type: default
+      properties:
+        address:
+          description: url
+          type: string
+        description:
+          type: string
+        type:
+          default: default
+          type: string
+        criticality:
+          default: 10
+          format: int64
+          type: integer
+      required:
+      - address
+      - criticality
+      - type
+      type: object
+    TargetDetail:
+      allOf:
+      - $ref: '#/components/schemas/Target'
+      - $ref: '#/components/schemas/TargetDetail_allOf'
+      type: object
+    TargetsResp:
+      example:
+        pagination:
+          previous_cursor: 0
+        targets:
+        - null
+        - null
+      properties:
+        targets:
+          items:
+            $ref: '#/components/schemas/TargetDetail'
+          type: array
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+    Pagination:
+      example:
+        previous_cursor: 0
+      properties:
+        previous_cursor:
+          format: int64
+          type: integer
+      type: object
+    Schedual:
+      example:
+        disable: true
+        time_sensitive: false
+        start_date: start_date
+      properties:
+        disable:
+          type: boolean
+        start_date:
+          type: string
+        time_sensitive:
+          default: false
+          type: boolean
+      required:
+      - disable
+      type: object
+    Scan:
+      example:
+        schedule:
+          disable: true
+          time_sensitive: false
+          start_date: start_date
+        profile_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        target_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        ui_sessionid: ui_sessionid
+      properties:
+        target_id:
+          format: uuid
+          type: string
+        profile_id:
+          format: uuid
+          type: string
+        ui_sessionid:
+          type: string
+        schedule:
+          $ref: '#/components/schemas/Schedual'
+      required:
+      - profile_id
+      - schedule
+      - target_id
+      type: object
+    Scans:
+      example:
+        pagination:
+          previous_cursor: 0
+        scans:
+        - schedule:
+            disable: true
+            time_sensitive: false
+            start_date: start_date
+          profile_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          target_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          ui_sessionid: ui_sessionid
+        - schedule:
+            disable: true
+            time_sensitive: false
+            start_date: start_date
+          profile_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          target_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          ui_sessionid: ui_sessionid
+      properties:
+        scans:
+          items:
+            $ref: '#/components/schemas/Scan'
+          type: array
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+    ScanDetail:
+      example:
+        profile_name: profile_name
+        schedule:
+          disable: true
+          time_sensitive: false
+          start_date: start_date
+        next_run: next_run
+        profile_id: profile_id
+        current_session:
+          event_level: 0
+          progress: progress
+          scan_session_id: scan_session_id
+          threat: 6
+          start_date: start_date
+          status: status
+        manual_intervention: true
+        target_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        scan_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        report_template_id: report_template_id
+        target:
+          address: address
+          criticality: 0
+          description: description
+          type: default
+      properties:
+        target:
+          $ref: '#/components/schemas/Target'
+        target_id:
+          format: uuid
+          type: string
+        current_session:
+          $ref: '#/components/schemas/ScanDetail_current_session'
+        manual_intervention:
+          type: boolean
+        next_run:
+          format: datetime
+          type: string
+        profile_id:
+          type: string
+        profile_name:
+          type: string
+        report_template_id:
+          type: string
+        scan_id:
+          format: uuid
+          type: string
+        schedule:
+          $ref: '#/components/schemas/Schedual'
+    TargetResp:
+      allOf:
+      - $ref: '#/components/schemas/Target'
+      - $ref: '#/components/schemas/TargetResp_allOf'
+      required:
+      - target_id
+      type: object
+    ScanApp:
+      example:
+        wvs: '{}'
+      properties:
+        wvs:
+          properties:
+            main:
+              properties:
+                messages:
+                  items:
+                    $ref: '#/components/schemas/ScanMessage'
+                  type: array
+                progress:
+                  format: int64
+                  type: integer
+                duration:
+                  type: object
+                web_scan_status:
+                  properties:
+                    location:
+                      format: int64
+                      type: integer
+            hosts:
+              additionalProperties:
+                $ref: '#/components/schemas/ScanHost'
+              type: object
+            status:
+              type: string
+            abort_requested:
+              type: boolean
+            start_date:
+              format: datetime
+              type: string
+            end_date:
+              format: datetime
+              type: string
+            end_deadline:
+              format: datetime
+              type: string
+            event_level:
+              type: object
+    ScanMessage:
+      properties:
+        time:
+          format: datetime
+          type: string
+        target_info:
+          properties:
+            target_id:
+              format: uuid
+              type: string
+            host:
+              type: string
+          required:
+          - host
+          - target_id
+        kind:
+          type: string
+        data:
+          type: string
+        level:
+          format: int64
+          type: integer
+      type: object
+    ScanHost:
+      properties:
+        host:
+          type: string
+        is_starting_host:
+          type: boolean
+        web_scan_status:
+          properties:
+            location:
+              format: int64
+              type: integer
+            avg_response_time:
+              format: int64
+              type: integer
+            max_response_time:
+              format: int64
+              type: integer
+            request_count:
+              format: int64
+              type: integer
+        target_info:
+          properties:
+            os:
+              type: string
+            responsive:
+              type: boolean
+            server:
+              type: string
+        aborted:
+          type: object
+        aborted_reason:
+          type: object
+        external_hosts:
+          items:
+            type: string
+          type: array
+    ScanStat:
+      example:
+        scanning_app:
+          wvs: '{}'
+        serverity_counts: '{}'
+        status: status
+      properties:
+        status:
+          type: string
+        scanning_app:
+          $ref: '#/components/schemas/ScanApp'
+        serverity_counts:
+          type: object
+    ApiResponse:
+      properties:
+        code:
+          format: int32
+          type: integer
+        type:
+          type: string
+        message:
+          type: string
+      type: object
+    TargetDetail_allOf:
+      properties:
+        target_id:
+          format: uuid
+          type: string
+        continuous_mode:
+          type: boolean
+        last_scan_date:
+          format: datetime
+          type: string
+        last_scan_id:
+          type: string
+        last_scan_session_id:
+          type: string
+        last_scan_session_status:
+          type: string
+    ScanDetail_current_session:
+      example:
+        event_level: 0
+        progress: progress
+        scan_session_id: scan_session_id
+        threat: 6
+        start_date: start_date
+        status: status
+      properties:
+        event_level:
+          format: int64
+          type: integer
+        progress:
+          type: string
+        scan_session_id:
+          type: string
+        start_date:
+          format: datetime
+          type: string
+        status:
+          type: string
+        threat:
+          format: int64
+          type: integer
+    TargetResp_allOf:
+      properties:
+        target_id:
+          format: string
+          type: string
+  securitySchemes:
+    api_key:
+      in: header
+      name: X-Auth
+      type: apiKey
