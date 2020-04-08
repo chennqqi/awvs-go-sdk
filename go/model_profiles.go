@@ -1,7 +1,7 @@
 /*
  * AWVS12 client api
  *
- * Awvs12 client api [http://swagger.io](http://swagger.io) or on [irc.freenode.net, #swagger](http://swagger.io/irc/). 
+ * Awvs12 client api [http://swagger.io](http://swagger.io) or on [irc.freenode.net, #swagger](http://swagger.io/irc/).
  *
  * API version: 1.0.0
  * Contact: apiteam@swagger.io
@@ -9,6 +9,7 @@
  */
 
 package openapi
+
 // Profiles struct for Profiles
 type Profiles struct {
 	ScanningProfiles []Profile `json:"scanning_profiles,omitempty"`

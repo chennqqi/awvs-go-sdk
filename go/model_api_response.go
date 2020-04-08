@@ -1,7 +1,7 @@
 /*
  * AWVS12 client api
  *
- * Awvs12 client api [http://swagger.io](http://swagger.io) or on [irc.freenode.net, #swagger](http://swagger.io/irc/). 
+ * Awvs12 client api [http://swagger.io](http://swagger.io) or on [irc.freenode.net, #swagger](http://swagger.io/irc/).
  *
  * API version: 1.0.0
  * Contact: apiteam@swagger.io
@@ -9,9 +9,10 @@
  */
 
 package openapi
+
 // ApiResponse struct for ApiResponse
 type ApiResponse struct {
-	Code int32 `json:"code,omitempty"`
-	Type string `json:"type,omitempty"`
+	Code    int32  `json:"code,omitempty"`
+	Type    string `json:"type,omitempty"`
 	Message string `json:"message,omitempty"`
 }

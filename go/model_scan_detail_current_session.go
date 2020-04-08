@@ -1,7 +1,7 @@
 /*
  * AWVS12 client api
  *
- * Awvs12 client api [http://swagger.io](http://swagger.io) or on [irc.freenode.net, #swagger](http://swagger.io/irc/). 
+ * Awvs12 client api [http://swagger.io](http://swagger.io) or on [irc.freenode.net, #swagger](http://swagger.io/irc/).
  *
  * API version: 1.0.0
  * Contact: apiteam@swagger.io
@@ -9,12 +9,13 @@
  */
 
 package openapi
+
 // ScanDetailCurrentSession struct for ScanDetailCurrentSession
 type ScanDetailCurrentSession struct {
-	EventLevel int64 `json:"event_level,omitempty"`
-	Progress string `json:"progress,omitempty"`
+	EventLevel    int64  `json:"event_level,omitempty"`
+	Progress      string `json:"progress,omitempty"`
 	ScanSessionId string `json:"scan_session_id,omitempty"`
-	StartDate string `json:"start_date,omitempty"`
-	Status string `json:"status,omitempty"`
-	Threat int64 `json:"threat,omitempty"`
+	StartDate     string `json:"start_date,omitempty"`
+	Status        string `json:"status,omitempty"`
+	Threat        int64  `json:"threat,omitempty"`
 }

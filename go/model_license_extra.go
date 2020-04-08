@@ -1,7 +1,7 @@
 /*
  * AWVS12 client api
  *
- * Awvs12 client api [http://swagger.io](http://swagger.io) or on [irc.freenode.net, #swagger](http://swagger.io/irc/). 
+ * Awvs12 client api [http://swagger.io](http://swagger.io) or on [irc.freenode.net, #swagger](http://swagger.io/irc/).
  *
  * API version: 1.0.0
  * Contact: apiteam@swagger.io
@@ -9,14 +9,15 @@
  */
 
 package openapi
+
 // LicenseExtra struct for LicenseExtra
 type LicenseExtra struct {
-	ExtraStdTargetCount int64 `json:"extra_std_target_count"`
-	ExtraUserCount int64 `json:"extra_user_count,omitempty"`
-	CanCreateNewStdTarget bool `json:"can_create_new_std_target"`
-	CanCreateNewDemoTarget bool `json:"can_create_new_demo_target,omitempty"`
-	CanCreateNewUser bool `json:"can_create_new_user,omitempty"`
+	ExtraStdTargetCount     int64                  `json:"extra_std_target_count"`
+	ExtraUserCount          int64                  `json:"extra_user_count,omitempty"`
+	CanCreateNewStdTarget   bool                   `json:"can_create_new_std_target"`
+	CanCreateNewDemoTarget  bool                   `json:"can_create_new_demo_target,omitempty"`
+	CanCreateNewUser        bool                   `json:"can_create_new_user,omitempty"`
 	TargetDeletionAllowance map[string]interface{} `json:"target_deletion_allowance"`
-	UniqueStdTargetCount int64 `json:"unique_std_target_count,omitempty"`
-	UserCount int64 `json:"user_count"`
+	UniqueStdTargetCount    int64                  `json:"unique_std_target_count,omitempty"`
+	UserCount               int64                  `json:"user_count"`
 }

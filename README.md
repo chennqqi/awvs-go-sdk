@@ -37,6 +37,14 @@ not all apis were tested
 - [x] [delete scan]()
 - [x] [scan stat]()
 
+### python apis
+
+https://github.com/bit4woo/Ashe/blob/master/lib/WVS11.py
+https://github.com/0xa-saline/acunetix-api/blob/master/acunetix.py
+https://github.com/cn-kali-team/Gui-Acunetix-Api/blob/master/func/scan.py
+https://github.com/WazeHell/acunetix-python/blob/master/core.py
+
+
 ## License
 
 Apache 2.0 license. See the [LICENSE](https://github.com/chennqqi/awvs-go-sdk/blob/master/LICENSE) file for details.

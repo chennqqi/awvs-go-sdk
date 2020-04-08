@@ -1,7 +1,7 @@
 /*
  * AWVS12 client api
  *
- * Awvs12 client api [http://swagger.io](http://swagger.io) or on [irc.freenode.net, #swagger](http://swagger.io/irc/). 
+ * Awvs12 client api [http://swagger.io](http://swagger.io) or on [irc.freenode.net, #swagger](http://swagger.io/irc/).
  *
  * API version: 1.0.0
  * Contact: apiteam@swagger.io
@@ -9,17 +9,18 @@
  */
 
 package openapi
+
 // License struct for License
 type License struct {
-	Access bool `json:"access"`
-	Actived bool `json:"actived,omitempty"`
-	Email string `json:"email"`
-	Expired bool `json:"expired"`
-	Expires string `json:"expires"`
-	Features []string `json:"features,omitempty"`
-	Limits LicenseLimit `json:"limits,omitempty"`
-	LicenseKey string `json:"license_key,omitempty"`
-	MaintenanceExpired bool `json:"maintenance_expired,omitempty"`
-	MaintenanceExpires string `json:"maintenance_expires,omitempty"`
-	ProductCode string `json:"product_code,omitempty"`
+	Access             bool         `json:"access"`
+	Actived            bool         `json:"actived,omitempty"`
+	Email              string       `json:"email"`
+	Expired            bool         `json:"expired"`
+	Expires            string       `json:"expires"`
+	Features           []string     `json:"features,omitempty"`
+	Limits             LicenseLimit `json:"limits,omitempty"`
+	LicenseKey         string       `json:"license_key,omitempty"`
+	MaintenanceExpired bool         `json:"maintenance_expired,omitempty"`
+	MaintenanceExpires string       `json:"maintenance_expires,omitempty"`
+	ProductCode        string       `json:"product_code,omitempty"`
 }

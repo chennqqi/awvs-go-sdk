@@ -1,7 +1,7 @@
 /*
  * AWVS12 client api
  *
- * Awvs12 client api [http://swagger.io](http://swagger.io) or on [irc.freenode.net, #swagger](http://swagger.io/irc/). 
+ * Awvs12 client api [http://swagger.io](http://swagger.io) or on [irc.freenode.net, #swagger](http://swagger.io/irc/).
  *
  * API version: 1.0.0
  * Contact: apiteam@swagger.io
@@ -9,11 +9,12 @@
  */
 
 package openapi
+
 // Me struct for Me
 type Me struct {
-	Email string `json:"email"`
-	Enabled bool `json:"enabled"`
+	Email     string `json:"email"`
+	Enabled   bool   `json:"enabled"`
 	Firstname string `json:"firstname"`
-	UserId string `json:"user_id"`
-	Su bool `json:"su"`
+	UserId    string `json:"user_id"`
+	Su        bool   `json:"su"`
 }

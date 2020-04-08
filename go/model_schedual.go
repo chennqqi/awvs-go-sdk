@@ -1,7 +1,7 @@
 /*
  * AWVS12 client api
  *
- * Awvs12 client api [http://swagger.io](http://swagger.io) or on [irc.freenode.net, #swagger](http://swagger.io/irc/). 
+ * Awvs12 client api [http://swagger.io](http://swagger.io) or on [irc.freenode.net, #swagger](http://swagger.io/irc/).
  *
  * API version: 1.0.0
  * Contact: apiteam@swagger.io
@@ -9,9 +9,10 @@
  */
 
 package openapi
+
 // Schedual struct for Schedual
 type Schedual struct {
-	Disable bool `json:"disable"`
-	StartDate string `json:"start_date,omitempty"`
-	TimeSensitive bool `json:"time_sensitive,omitempty"`
+	Disable       bool   `json:"disable"`
+	StartDate     string `json:"start_date,omitempty"`
+	TimeSensitive bool   `json:"time_sensitive,omitempty"`
 }

@@ -90,15 +90,15 @@ func NewConfiguration() *Configuration {
 				Url:         "https://{host}:{port}/{basePath}",
 				Description: "The production API server",
 				Variables: map[string]ServerVariable{
-					"host": ServerVariable{
+					"host": {
 						Description:  "awvs web host",
 						DefaultValue: "localhost",
 					},
-					"port": ServerVariable{
+					"port": {
 						Description:  "No description provided",
 						DefaultValue: "10443",
 					},
-					"basePath": ServerVariable{
+					"basePath": {
 						Description:  "No description provided",
 						DefaultValue: "/api/v1",
 					},

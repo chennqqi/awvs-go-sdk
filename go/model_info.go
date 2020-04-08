@@ -1,7 +1,7 @@
 /*
  * AWVS12 client api
  *
- * Awvs12 client api [http://swagger.io](http://swagger.io) or on [irc.freenode.net, #swagger](http://swagger.io/irc/). 
+ * Awvs12 client api [http://swagger.io](http://swagger.io) or on [irc.freenode.net, #swagger](http://swagger.io/irc/).
  *
  * API version: 1.0.0
  * Contact: apiteam@swagger.io
@@ -9,13 +9,14 @@
  */
 
 package openapi
+
 // Info struct for Info
 type Info struct {
-	Acumonitor bool `json:"acumonitor,omitempty"`
-	BuildNumber string `json:"build_number,omitempty"`
-	License License `json:"license,omitempty"`
+	Acumonitor   bool         `json:"acumonitor,omitempty"`
+	BuildNumber  string       `json:"build_number,omitempty"`
+	License      License      `json:"license,omitempty"`
 	LicenseExtra LicenseExtra `json:"license_extra,omitempty"`
-	MajorVersion string `json:"major_version,omitempty"`
-	MinorVersion string `json:"minor_version,omitempty"`
-	UpdateInfo UpdateInfo `json:"update_info,omitempty"`
+	MajorVersion string       `json:"major_version,omitempty"`
+	MinorVersion string       `json:"minor_version,omitempty"`
+	UpdateInfo   UpdateInfo   `json:"update_info,omitempty"`
 }

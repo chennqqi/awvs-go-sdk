@@ -1,7 +1,7 @@
 /*
  * AWVS12 client api
  *
- * Awvs12 client api [http://swagger.io](http://swagger.io) or on [irc.freenode.net, #swagger](http://swagger.io/irc/). 
+ * Awvs12 client api [http://swagger.io](http://swagger.io) or on [irc.freenode.net, #swagger](http://swagger.io/irc/).
  *
  * API version: 1.0.0
  * Contact: apiteam@swagger.io
@@ -9,11 +9,12 @@
  */
 
 package openapi
+
 // UpdateInfo struct for UpdateInfo
 type UpdateInfo struct {
-	BuildNumber string `json:"build_number"`
+	BuildNumber  string `json:"build_number"`
 	MajorVersion string `json:"major_version"`
 	MinorVersion string `json:"minor_version"`
-	NewUpdate bool `json:"new_update"`
+	NewUpdate    bool   `json:"new_update"`
 	UpdateStatus string `json:"update_status,omitempty"`
 }
