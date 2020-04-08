@@ -20,9 +20,9 @@ not all apis were tested
 
 ### Login APIs
 
-- [x] [login](https://cloud.tencent.com/document/product/572/8819)
-- [x] [me](https://cloud.tencent.com/document/product/572/8821)
-- [x] [info](https://cloud.tencent.com/document/product/572/8820)
+- [x] [login]()
+- [x] [me]()
+- [x] [info]()
 
 ### Target APIs
 
