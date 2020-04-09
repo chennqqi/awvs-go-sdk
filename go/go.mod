@@ -1,4 +1,4 @@
-module github.com/chennqqi/awvs-go-sdk/openapi
+module github.com/chennqqi/awvs-go-sdk/go
 
 require (
 	github.com/antihax/optional v1.0.0
