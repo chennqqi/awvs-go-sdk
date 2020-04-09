@@ -50,6 +50,8 @@ paths:
               schema:
                 $ref: '#/components/schemas/Me'
           description: Success
+      security:
+      - api_key: []          
       summary: get user info
   /info:
     get:

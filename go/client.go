@@ -21,6 +21,7 @@ import (
 	"log"
 	"mime/multipart"
 	"net/http"
+	"net/http/cookiejar"
 	"net/http/httputil"
 	"net/url"
 	"os"
@@ -60,6 +61,10 @@ type service struct {
 func NewAPIClient(cfg *Configuration) *APIClient {
 	if cfg.HTTPClient == nil {
 		cfg.HTTPClient = http.DefaultClient
+	}
+	if cfg.HTTPClient.Jar == nil {
+		jar, _ := cookiejar.New(nil)
+		cfg.HTTPClient.Jar = jar
 	}
 
 	c := &APIClient{}

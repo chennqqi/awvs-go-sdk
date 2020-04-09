@@ -81,10 +81,13 @@ type Configuration struct {
 // NewConfiguration returns a new Configuration object
 func NewConfiguration() *Configuration {
 	cfg := &Configuration{
-		BasePath:      "https://localhost:10443//api/v1",
-		DefaultHeader: make(map[string]string),
-		UserAgent:     "OpenAPI-Generator/1.0.0/go",
-		Debug:         false,
+		BasePath: "https://localhost:13443/api/v1",
+		DefaultHeader: map[string]string{
+			"Sec-Fetch-Mode": "cors",
+			"Sec-Fetch-Site": "same-origin",
+		},
+		UserAgent: "OpenAPI-Generator/1.0.0/go",
+		Debug:     false,
 		Servers: []ServerConfiguration{
 			{
 				Url:         "https://{host}:{port}/{basePath}",
@@ -96,7 +99,7 @@ func NewConfiguration() *Configuration {
 					},
 					"port": {
 						Description:  "No description provided",
-						DefaultValue: "10443",
+						DefaultValue: "13443",
 					},
 					"basePath": {
 						Description:  "No description provided",

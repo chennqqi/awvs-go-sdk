@@ -2,3 +2,5 @@
 /utils/test/upload_media
 /cmd/cascmd/*.exe
 *.cap
+*.exe
+*.sum

@@ -10,6 +10,9 @@ not all apis were tested
 
 [openapi 3.0 file is here](https://github.com/chennqqi/awvs-go-sdk/blob/master/go/api/openapi.yaml.yaml)
 
+examples [awvs-cli](https://github.com/chennqqi/awvs-go-sdk/tree/master/cmd/awvs-cli)
+
+
 
 ## TODO
 
