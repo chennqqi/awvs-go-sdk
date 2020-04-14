@@ -37,6 +37,7 @@ Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *DefaultApi* | [**AddTarget**](docs/DefaultApi.md#addtarget) | **Post** /targets | Add a new target to the scan list
 *DefaultApi* | [**DeleteScan**](docs/DefaultApi.md#deletescan) | **Delete** /scans/{scanid} | delete scan by scanid
+*DefaultApi* | [**DeleteTarget**](docs/DefaultApi.md#deletetarget) | **Delete** /targets/{targetid} | get target by id
 *DefaultApi* | [**GetInfo**](docs/DefaultApi.md#getinfo) | **Get** /info | get awvs info
 *DefaultApi* | [**GetMe**](docs/DefaultApi.md#getme) | **Get** /me | get user info
 *DefaultApi* | [**GetScanProfiles**](docs/DefaultApi.md#getscanprofiles) | **Get** /scanning_profiles | get scan profile
@@ -83,6 +84,7 @@ Class | Method | HTTP request | Description
  - [TargetConfigLoginCredentials](docs/TargetConfigLoginCredentials.md)
  - [TargetConfigProxy](docs/TargetConfigProxy.md)
  - [TargetConfigSshCredentials](docs/TargetConfigSshCredentials.md)
+ - [TargetDel](docs/TargetDel.md)
  - [TargetDetail](docs/TargetDetail.md)
  - [TargetDetailAllOf](docs/TargetDetailAllOf.md)
  - [TargetResp](docs/TargetResp.md)
