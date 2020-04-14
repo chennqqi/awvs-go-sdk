@@ -4,3 +4,5 @@
 *.cap
 *.exe
 *.sum
+/out/go
+/out.zip

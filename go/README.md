@@ -31,7 +31,7 @@ import "./openapi"
 
 ## Documentation for API Endpoints
 
-All URIs are relative to *https://localhost:10443//api/v1*
+All URIs are relative to *https://127.0.0.1:13443/api/v1*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
@@ -45,9 +45,11 @@ Class | Method | HTTP request | Description
 *DefaultApi* | [**GetScans**](docs/DefaultApi.md#getscans) | **Get** /scans | get scan list
 *DefaultApi* | [**GetStat**](docs/DefaultApi.md#getstat) | **Get** /scans/{scanid}/results/{sessionid}/statistics | get stat by scanid,sessionid
 *DefaultApi* | [**GetTarget**](docs/DefaultApi.md#gettarget) | **Get** /targets/{targetid} | get target by id
+*DefaultApi* | [**GetTargetConfig**](docs/DefaultApi.md#gettargetconfig) | **Get** /targets/{targetid}/configuration | get target by id
 *DefaultApi* | [**GetTargets**](docs/DefaultApi.md#gettargets) | **Get** /targets | get all targets
 *DefaultApi* | [**GetVuln**](docs/DefaultApi.md#getvuln) | **Get** /scans/{scanid}/results/{sessionid}/vulnerabilities | get results by scanid,sessionid
 *DefaultApi* | [**Login**](docs/DefaultApi.md#login) | **Post** /me/login | login
+*DefaultApi* | [**SetTargetConfig**](docs/DefaultApi.md#settargetconfig) | **Patch** /targets/{targetid}/configuration | get target by id
 *DefaultApi* | [**StartScan**](docs/DefaultApi.md#startscan) | **Post** /scans | start scan by scanid
 *DefaultApi* | [**StopScan**](docs/DefaultApi.md#stopscan) | **Post** /scans/{scanid}/abort | stop scan by scanid
 
@@ -74,6 +76,13 @@ Class | Method | HTTP request | Description
  - [Scans](docs/Scans.md)
  - [Schedual](docs/Schedual.md)
  - [Target](docs/Target.md)
+ - [TargetConfig](docs/TargetConfig.md)
+ - [TargetConfigAuthentication](docs/TargetConfigAuthentication.md)
+ - [TargetConfigCustomCookies](docs/TargetConfigCustomCookies.md)
+ - [TargetConfigLogin](docs/TargetConfigLogin.md)
+ - [TargetConfigLoginCredentials](docs/TargetConfigLoginCredentials.md)
+ - [TargetConfigProxy](docs/TargetConfigProxy.md)
+ - [TargetConfigSshCredentials](docs/TargetConfigSshCredentials.md)
  - [TargetDetail](docs/TargetDetail.md)
  - [TargetDetailAllOf](docs/TargetDetailAllOf.md)
  - [TargetResp](docs/TargetResp.md)

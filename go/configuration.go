@@ -81,7 +81,7 @@ type Configuration struct {
 // NewConfiguration returns a new Configuration object
 func NewConfiguration() *Configuration {
 	cfg := &Configuration{
-		BasePath: "https://localhost:13443/api/v1",
+		BasePath:      "https://127.0.0.1:13443/api/v1",
 		DefaultHeader: map[string]string{
 			"Sec-Fetch-Mode": "cors",
 			"Sec-Fetch-Site": "same-origin",
@@ -93,16 +93,16 @@ func NewConfiguration() *Configuration {
 				Url:         "https://{host}:{port}/{basePath}",
 				Description: "The production API server",
 				Variables: map[string]ServerVariable{
-					"host": {
-						Description:  "awvs web host",
-						DefaultValue: "localhost",
+					"host": ServerVariable{
+						Description: "awvs web host",
+						DefaultValue: "127.0.0.1",
 					},
-					"port": {
-						Description:  "No description provided",
+					"port": ServerVariable{
+						Description: "awvs web port",
 						DefaultValue: "13443",
 					},
-					"basePath": {
-						Description:  "No description provided",
+					"basePath": ServerVariable{
+						Description: "awvs api version path",
 						DefaultValue: "/api/v1",
 					},
 				},
