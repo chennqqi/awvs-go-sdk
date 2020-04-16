@@ -11,7 +11,7 @@
 package openapi
 // TargetConfigProxy struct for TargetConfigProxy
 type TargetConfigProxy struct {
-	Enable bool `json:"enable,omitempty"`
+	Enabled bool `json:"enabled,omitempty"`
 	Address string `json:"address,omitempty"`
 	Protocol string `json:"protocol,omitempty"`
 	Port int64 `json:"port,omitempty"`

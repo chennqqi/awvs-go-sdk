@@ -11,7 +11,7 @@
 package openapi
 // TargetConfigAuthentication http Authentication(Basic, Digest, NTLM and Kerberos (Windows only)
 type TargetConfigAuthentication struct {
-	Enable bool `json:"enable,omitempty"`
+	Enabled bool `json:"enabled,omitempty"`
 	Username string `json:"username,omitempty"`
 	Password string `json:"password,omitempty"`
 }

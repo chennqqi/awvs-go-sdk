@@ -11,7 +11,7 @@
 package openapi
 // TargetConfigLoginCredentials struct for TargetConfigLoginCredentials
 type TargetConfigLoginCredentials struct {
-	Enable bool `json:"enable,omitempty"`
+	Enabled bool `json:"enabled,omitempty"`
 	Username string `json:"username,omitempty"`
 	Password string `json:"password,omitempty"`
 }
