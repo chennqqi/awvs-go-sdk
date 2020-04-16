@@ -13,9 +13,25 @@ package openapi
 // ScanDetailCurrentSession struct for ScanDetailCurrentSession
 type ScanDetailCurrentSession struct {
 	EventLevel    int64  `json:"event_level,omitempty"`
-	Progress      string `json:"progress,omitempty"`
+	Progress      int64  `json:"progress,omitempty"`
 	ScanSessionId string `json:"scan_session_id,omitempty"`
 	StartDate     string `json:"start_date,omitempty"`
-	Status        string `json:"status,omitempty"`
-	Threat        int64  `json:"threat,omitempty"`
+
+	/*
+	   Enum:
+	   Array [10]
+	   0: "scheduled"
+	   1: "queued"
+	   2: "starting"
+	   3: "processing"
+	   4: "aborting"
+	   5: "aborted"
+	   6: "pausing"
+	   7: "paused"
+	   8: "completed"
+	   9: "failed"
+	*/
+
+	Status string `json:"status,omitempty"`
+	Threat int64  `json:"threat,omitempty"`
 }
