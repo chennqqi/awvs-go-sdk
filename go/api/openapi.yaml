@@ -17,15 +17,17 @@ externalDocs:
   url: http://swagger.io
 servers:
 - description: The production API server
-  url: https://{host}:{port}/{basePath}
+  url: https://{host}:{port}{basePath}
   variables:
     host:
-      default: localhost
+      default: 127.0.0.1
       description: awvs web host
     port:
-      default: "10443"
+      default: "13443"
+      description: awvs web port
     basePath:
       default: /api/v1
+      description: awvs api version path
 paths:
   /me/login:
     post:
@@ -51,7 +53,7 @@ paths:
                 $ref: '#/components/schemas/Me'
           description: Success
       security:
-      - api_key: []          
+      - api_key: []
       summary: get user info
   /info:
     get:
@@ -100,6 +102,30 @@ paths:
       - api_key: []
       summary: Add a new target to the scan list
   /targets/{targetid}:
+    delete:
+      operationId: deleteTarget
+      parameters:
+      - description: target id
+        explode: false
+        in: path
+        name: targetid
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TargetDel'
+          description: Success
+        default:
+          description: Faiure
+      security:
+      - api_key: []
+      summary: get target by id
     get:
       operationId: getTarget
       parameters:
@@ -118,6 +144,53 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/TargetDetail'
+          description: Success
+        default:
+          description: Faiure
+      security:
+      - api_key: []
+      summary: get target by id
+  /targets/{targetid}/configuration:
+    get:
+      operationId: getTargetConfig
+      parameters:
+      - description: target id
+        explode: false
+        in: path
+        name: targetid
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TargetDetail'
+          description: Success
+        default:
+          description: Faiure
+      security:
+      - api_key: []
+      summary: get target by id
+    patch:
+      operationId: setTargetConfig
+      parameters:
+      - description: target id
+        explode: false
+        in: path
+        name: targetid
+        required: true
+        schema:
+          format: uuid
+          type: string
+        style: simple
+      requestBody:
+        $ref: '#/components/requestBodies/TargetConfig'
+      responses:
+        "204":
           description: Success
         default:
           description: Faiure
@@ -353,6 +426,11 @@ components:
             $ref: '#/components/schemas/LoginReq'
       description: login parameter
       required: true
+    TargetConfig:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/TargetConfig'
     Target:
       content:
         application/json:
@@ -422,6 +500,17 @@ components:
       - expired
       - expires
       type: object
+    TargetDel:
+      example:
+        target_deletion_consumed: true
+        target_deletion_allowance: 0
+      properties:
+        target_deletion_consumed:
+          type: boolean
+        target_deletion_allowance:
+          format: int64
+          type: integer
+      type: object
     Profile:
       example:
         profile_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
@@ -481,7 +570,6 @@ components:
         can_create_new_user:
           type: boolean
         target_deletion_allowance:
-          format: int64
           type: object
         unique_std_target_count:
           format: int64
@@ -661,6 +749,111 @@ components:
       - criticality
       - type
       type: object
+    TargetConfig:
+      example:
+        custom_cookies:
+        - cookie: cookie
+          url: http://example.com/aeiou
+        - cookie: cookie
+          url: http://example.com/aeiou
+        debug: true
+        limit_crawler_scope: true
+        sensor_secret: sensor_secret
+        client_certificate_password: client_certificate_password
+        login:
+          credentials:
+            password: password
+            enable: true
+            username: username
+          kind: none
+        technologies:
+        - ASP
+        - ASP
+        proxy:
+          protocol: protocol
+          password: password
+          address: address
+          port: 0
+          enable: true
+          username: username
+        case_sensitive: case_sensitive
+        excluded_hours_id: excluded_hours_id
+        ssh_credentials:
+          kind: kind
+        excluded_paths:
+        - excluded_paths
+        - excluded_paths
+        sensor: true
+        scan_speed: sequential
+        user_agent: user_agent
+        authentication:
+          password: password
+          enable: true
+          username: username
+        custom_headers:
+        - custom_headers
+        - custom_headers
+      properties:
+        authentication:
+          $ref: '#/components/schemas/TargetConfig_authentication'
+        case_sensitive:
+          type: string
+        client_certificate_password:
+          type: string
+        custom_cookies:
+          items:
+            $ref: '#/components/schemas/TargetConfig_custom_cookies'
+          type: array
+        custom_headers:
+          description: MyHeader:myheadervalue
+          items:
+            type: string
+          type: array
+        excluded_hours_id:
+          type: string
+        debug:
+          type: boolean
+        login:
+          $ref: '#/components/schemas/TargetConfig_login'
+        excluded_paths:
+          items:
+            type: string
+          type: array
+        scan_speed:
+          enum:
+          - sequential
+          - slow
+          - moderate
+          - fast
+          type: string
+        technologies:
+          items:
+            enum:
+            - ASP
+            - ColdFusion/Jrun
+            - Python
+            - Rails
+            - PHP
+            - ASP.NET
+            - Perl
+            - FrontPage
+            - Node.js
+            - Java/J2EE
+            type: string
+          type: array
+        user_agent:
+          type: string
+        sensor:
+          type: boolean
+        sensor_secret:
+          type: string
+        limit_crawler_scope:
+          type: boolean
+        ssh_credentials:
+          $ref: '#/components/schemas/TargetConfig_ssh_credentials'
+        proxy:
+          $ref: '#/components/schemas/TargetConfig_proxy'
+      type: object
     TargetDetail:
       allOf:
       - $ref: '#/components/schemas/Target'
@@ -670,6 +863,7 @@ components:
       example:
         pagination:
           previous_cursor: 0
+          next_cursor: 6
         targets:
         - null
         - null
@@ -683,8 +877,12 @@ components:
     Pagination:
       example:
         previous_cursor: 0
+        next_cursor: 6
       properties:
         previous_cursor:
+          format: int64
+          type: integer
+        next_cursor:
           format: int64
           type: integer
       type: object
@@ -729,29 +927,22 @@ components:
       - schedule
       - target_id
       type: object
+    ScansItem:
+      allOf:
+      - $ref: '#/components/schemas/ScanDetail'
+      - $ref: '#/components/schemas/Target'
     Scans:
       example:
         pagination:
           previous_cursor: 0
+          next_cursor: 6
         scans:
-        - schedule:
-            disable: true
-            time_sensitive: false
-            start_date: start_date
-          profile_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-          target_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-          ui_sessionid: ui_sessionid
-        - schedule:
-            disable: true
-            time_sensitive: false
-            start_date: start_date
-          profile_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-          target_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-          ui_sessionid: ui_sessionid
+        - null
+        - null
       properties:
         scans:
           items:
-            $ref: '#/components/schemas/Scan'
+            $ref: '#/components/schemas/ScansItem'
           type: array
         pagination:
           $ref: '#/components/schemas/Pagination'
@@ -934,6 +1125,85 @@ components:
         message:
           type: string
       type: object
+    TargetConfig_authentication:
+      description: http Authentication(Basic, Digest, NTLM and Kerberos (Windows only)
+      example:
+        password: password
+        enable: true
+        username: username
+      properties:
+        enable:
+          type: boolean
+        username:
+          type: string
+        password:
+          type: string
+    TargetConfig_custom_cookies:
+      example:
+        cookie: cookie
+        url: http://example.com/aeiou
+      properties:
+        url:
+          format: url
+          type: string
+        cookie:
+          type: string
+    TargetConfig_login_credentials:
+      example:
+        password: password
+        enable: true
+        username: username
+      properties:
+        enable:
+          type: boolean
+        username:
+          type: string
+        password:
+          type: string
+    TargetConfig_login:
+      example:
+        credentials:
+          password: password
+          enable: true
+          username: username
+        kind: none
+      properties:
+        kind:
+          enum:
+          - none
+          - automatic
+          type: string
+        credentials:
+          $ref: '#/components/schemas/TargetConfig_login_credentials'
+    TargetConfig_ssh_credentials:
+      example:
+        kind: kind
+      properties:
+        kind:
+          type: string
+    TargetConfig_proxy:
+      example:
+        protocol: protocol
+        password: password
+        address: address
+        port: 0
+        enable: true
+        username: username
+      properties:
+        enable:
+          type: boolean
+        address:
+          format: ip
+          type: string
+        protocol:
+          type: string
+        port:
+          format: int64
+          type: integer
+        username:
+          type: string
+        password:
+          type: string
     TargetDetail_allOf:
       properties:
         target_id:

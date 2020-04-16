@@ -13,4 +13,5 @@ package openapi
 // Pagination struct for Pagination
 type Pagination struct {
 	PreviousCursor int64 `json:"previous_cursor,omitempty"`
+	NextCursor int64 `json:"next_cursor,omitempty"`
 }

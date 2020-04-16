@@ -12,6 +12,6 @@ package openapi
 
 // Scans struct for Scans
 type Scans struct {
-	Scans      []Scan     `json:"scans,omitempty"`
+	Scans []ScansItem `json:"scans,omitempty"`
 	Pagination Pagination `json:"pagination,omitempty"`
 }

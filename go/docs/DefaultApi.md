@@ -1,11 +1,12 @@
 # \DefaultApi
 
-All URIs are relative to *https://localhost:10443//api/v1*
+All URIs are relative to *https://127.0.0.1:13443/api/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**AddTarget**](DefaultApi.md#AddTarget) | **Post** /targets | Add a new target to the scan list
 [**DeleteScan**](DefaultApi.md#DeleteScan) | **Delete** /scans/{scanid} | delete scan by scanid
+[**DeleteTarget**](DefaultApi.md#DeleteTarget) | **Delete** /targets/{targetid} | get target by id
 [**GetInfo**](DefaultApi.md#GetInfo) | **Get** /info | get awvs info
 [**GetMe**](DefaultApi.md#GetMe) | **Get** /me | get user info
 [**GetScanProfiles**](DefaultApi.md#GetScanProfiles) | **Get** /scanning_profiles | get scan profile
@@ -14,9 +15,11 @@ Method | HTTP request | Description
 [**GetScans**](DefaultApi.md#GetScans) | **Get** /scans | get scan list
 [**GetStat**](DefaultApi.md#GetStat) | **Get** /scans/{scanid}/results/{sessionid}/statistics | get stat by scanid,sessionid
 [**GetTarget**](DefaultApi.md#GetTarget) | **Get** /targets/{targetid} | get target by id
+[**GetTargetConfig**](DefaultApi.md#GetTargetConfig) | **Get** /targets/{targetid}/configuration | get target by id
 [**GetTargets**](DefaultApi.md#GetTargets) | **Get** /targets | get all targets
 [**GetVuln**](DefaultApi.md#GetVuln) | **Get** /scans/{scanid}/results/{sessionid}/vulnerabilities | get results by scanid,sessionid
 [**Login**](DefaultApi.md#Login) | **Post** /me/login | login
+[**SetTargetConfig**](DefaultApi.md#SetTargetConfig) | **Patch** /targets/{targetid}/configuration | get target by id
 [**StartScan**](DefaultApi.md#StartScan) | **Post** /scans | start scan by scanid
 [**StopScan**](DefaultApi.md#StopScan) | **Post** /scans/{scanid}/abort | stop scan by scanid
 
@@ -88,6 +91,38 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
+## DeleteTarget
+
+> TargetDel DeleteTarget(ctx, targetid)
+
+get target by id
+
+### Required Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**targetid** | [**string**](.md)| target id | 
+
+### Return type
+
+[**TargetDel**](TargetDel.md)
+
+### Authorization
+
+[api_key](../README.md#api_key)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## GetInfo
 
 > Info GetInfo(ctx, )
@@ -132,7 +167,7 @@ This endpoint does not need any parameter.
 
 ### Authorization
 
-No authorization required
+[api_key](../README.md#api_key)
 
 ### HTTP request headers
 
@@ -329,6 +364,38 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
+## GetTargetConfig
+
+> TargetDetail GetTargetConfig(ctx, targetid)
+
+get target by id
+
+### Required Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**targetid** | [**string**](.md)| target id | 
+
+### Return type
+
+[**TargetDetail**](TargetDetail.md)
+
+### Authorization
+
+[api_key](../README.md#api_key)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## GetTargets
 
 > TargetsResp GetTargets(ctx, )
@@ -411,6 +478,49 @@ Name | Type | Description  | Notes
 ### Authorization
 
 No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: Not defined
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## SetTargetConfig
+
+> SetTargetConfig(ctx, targetid, optional)
+
+get target by id
+
+### Required Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**targetid** | [**string**](.md)| target id | 
+ **optional** | ***SetTargetConfigOpts** | optional parameters | nil if no parameters
+
+### Optional Parameters
+
+Optional parameters are passed through a pointer to a SetTargetConfigOpts struct
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **targetConfig** | [**optional.Interface of TargetConfig**](TargetConfig.md)|  | 
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[api_key](../README.md#api_key)
 
 ### HTTP request headers
 

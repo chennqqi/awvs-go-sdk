@@ -75,6 +75,7 @@ Class | Method | HTTP request | Description
  - [ScanMessage](docs/ScanMessage.md)
  - [ScanStat](docs/ScanStat.md)
  - [Scans](docs/Scans.md)
+ - [ScansItem](docs/ScansItem.md)
  - [Schedual](docs/Schedual.md)
  - [Target](docs/Target.md)
  - [TargetConfig](docs/TargetConfig.md)
