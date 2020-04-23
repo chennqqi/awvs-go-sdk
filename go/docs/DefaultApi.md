@@ -9,11 +9,11 @@ Method | HTTP request | Description
 [**DeleteTarget**](DefaultApi.md#DeleteTarget) | **Delete** /targets/{targetid} | get target by id
 [**GetInfo**](DefaultApi.md#GetInfo) | **Get** /info | get awvs info
 [**GetMe**](DefaultApi.md#GetMe) | **Get** /me | get user info
+[**GetScanDetail**](DefaultApi.md#GetScanDetail) | **Get** /scans/{scanid} | get scan status by scanid
 [**GetScanProfiles**](DefaultApi.md#GetScanProfiles) | **Get** /scanning_profiles | get scan profile
 [**GetScanReports**](DefaultApi.md#GetScanReports) | **Get** /reports/{scanid} | get scan reports by scanid
-[**GetScanStatus**](DefaultApi.md#GetScanStatus) | **Get** /scans/{scanid} | get scan status by scanid
+[**GetScanStat**](DefaultApi.md#GetScanStat) | **Get** /scans/{scanid}/results/{sessionid}/statistics | get stat by scanid,sessionid
 [**GetScans**](DefaultApi.md#GetScans) | **Get** /scans | get scan list
-[**GetStat**](DefaultApi.md#GetStat) | **Get** /scans/{scanid}/results/{sessionid}/statistics | get stat by scanid,sessionid
 [**GetTarget**](DefaultApi.md#GetTarget) | **Get** /targets/{targetid} | get target by id
 [**GetTargetConfig**](DefaultApi.md#GetTargetConfig) | **Get** /targets/{targetid}/configuration | get target by id
 [**GetTargets**](DefaultApi.md#GetTargets) | **Get** /targets | get all targets
@@ -179,6 +179,38 @@ This endpoint does not need any parameter.
 [[Back to README]](../README.md)
 
 
+## GetScanDetail
+
+> ScanDetail GetScanDetail(ctx, scanid)
+
+get scan status by scanid
+
+### Required Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**scanid** | [**string**](.md)| scan task id | 
+
+### Return type
+
+[**ScanDetail**](ScanDetail.md)
+
+### Authorization
+
+[api_key](../README.md#api_key)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## GetScanProfiles
 
 > Profiles GetScanProfiles(ctx, )
@@ -239,11 +271,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## GetScanStatus
+## GetScanStat
 
-> ScanDetail GetScanStatus(ctx, scanid)
+> ScanStat GetScanStat(ctx, scanid, sessionid)
 
-get scan status by scanid
+get stat by scanid,sessionid
 
 ### Required Parameters
 
@@ -252,10 +284,11 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **scanid** | [**string**](.md)| scan task id | 
+**sessionid** | **string**| scan session id | 
 
 ### Return type
 
-[**ScanDetail**](ScanDetail.md)
+[**ScanStat**](ScanStat.md)
 
 ### Authorization
 
@@ -284,39 +317,6 @@ This endpoint does not need any parameter.
 ### Return type
 
 [**Scans**](Scans.md)
-
-### Authorization
-
-[api_key](../README.md#api_key)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## GetStat
-
-> ScanStat GetStat(ctx, scanid, sessionid)
-
-get stat by scanid,sessionid
-
-### Required Parameters
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
-**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**scanid** | [**string**](.md)| scan task id | 
-**sessionid** | **string**| scan session id | 
-
-### Return type
-
-[**ScanStat**](ScanStat.md)
 
 ### Authorization
 

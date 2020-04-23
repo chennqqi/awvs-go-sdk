@@ -9,7 +9,11 @@
  */
 
 package openapi
-// ScanApp struct for ScanApp
-type ScanApp struct {
-	Wvs ScanAppWvs `json:"wvs,omitempty"`
+// ScanAppMessage struct for ScanAppMessage
+type ScanAppMessage struct {
+	Time string `json:"time,omitempty"`
+	Kind string `json:"kind,omitempty"`
+	Level int64 `json:"level,omitempty"`
+	Data string `json:"data,omitempty"`
+	TargetInfo ScanAppTargetInfo `json:"target_info,omitempty"`
 }

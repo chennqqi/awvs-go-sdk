@@ -9,8 +9,8 @@
  */
 
 package openapi
-// ScanAppVulnTargetInfo struct for ScanAppVulnTargetInfo
-type ScanAppVulnTargetInfo struct {
+// ScanAppTargetInfo struct for ScanAppTargetInfo
+type ScanAppTargetInfo struct {
 	TargetId string `json:"target_id,omitempty"`
 	Host string `json:"host,omitempty"`
 }

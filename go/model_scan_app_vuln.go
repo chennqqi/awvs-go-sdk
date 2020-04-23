@@ -15,5 +15,5 @@ type ScanAppVuln struct {
 	Name string `json:"name,omitempty"`
 	VulnId string `json:"vuln_id,omitempty"`
 	Serverity int64 `json:"serverity,omitempty"`
-	TargetInfo ScanAppVulnTargetInfo `json:"target_info,omitempty"`
+	TargetInfo ScanAppTargetInfo `json:"target_info,omitempty"`
 }

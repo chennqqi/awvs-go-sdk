@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Enable** | **bool** |  | [optional] 
+**Enabled** | **bool** |  | [optional] 
 **Username** | **string** |  | [optional] 
 **Password** | **string** |  | [optional] 
 

@@ -1,7 +1,7 @@
 /*
  * AWVS12 client api
  *
- * Awvs12 client api [http://swagger.io](http://swagger.io) or on [irc.freenode.net, #swagger](http://swagger.io/irc/).
+ * Awvs12 client api [http://swagger.io](http://swagger.io) or on [irc.freenode.net, #swagger](http://swagger.io/irc/). 
  *
  * API version: 1.0.0
  * Contact: apiteam@swagger.io
@@ -9,17 +9,16 @@
  */
 
 package openapi
-
 // ScanDetail struct for ScanDetail
 type ScanDetail struct {
-	Target             Target                   `json:"target,omitempty"`
-	TargetId           string                   `json:"target_id,omitempty"`
-	CurrentSession     ScanDetailCurrentSession `json:"current_session,omitempty"`
-	ManualIntervention bool                     `json:"manual_intervention,omitempty"`
-	NextRun            string                   `json:"next_run,omitempty"`
-	ProfileId          string                   `json:"profile_id,omitempty"`
-	ProfileName        string                   `json:"profile_name,omitempty"`
-	ReportTemplateId   string                   `json:"report_template_id,omitempty"`
-	ScanId             string                   `json:"scan_id,omitempty"`
-	Schedule           Schedual                 `json:"schedule,omitempty"`
+	Target Target `json:"target,omitempty"`
+	TargetId string `json:"target_id,omitempty"`
+	CurrentSession ScanDetailCurrentSession `json:"current_session,omitempty"`
+	ManualIntervention bool `json:"manual_intervention,omitempty"`
+	NextRun string `json:"next_run,omitempty"`
+	ProfileId string `json:"profile_id,omitempty"`
+	ProfileName string `json:"profile_name,omitempty"`
+	ReportTemplateId string `json:"report_template_id,omitempty"`
+	ScanId string `json:"scan_id,omitempty"`
+	Schedule Schedual `json:"schedule,omitempty"`
 }

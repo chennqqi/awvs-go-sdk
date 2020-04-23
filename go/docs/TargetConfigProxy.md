@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Enable** | **bool** |  | [optional] 
+**Enabled** | **bool** |  | [optional] 
 **Address** | **string** |  | [optional] 
 **Protocol** | **string** |  | [optional] 
 **Port** | **int64** |  | [optional] 

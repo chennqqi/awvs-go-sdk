@@ -1,4 +1,4 @@
-# ScanHost
+# ScanAppHost
 
 ## Properties
 

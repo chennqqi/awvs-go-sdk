@@ -9,12 +9,12 @@
  */
 
 package openapi
-// ScanDetailCurrentSession struct for ScanDetailCurrentSession
-type ScanDetailCurrentSession struct {
-	EventLevel int64 `json:"event_level,omitempty"`
+// ScanAppWvsMain struct for ScanAppWvsMain
+type ScanAppWvsMain struct {
 	Progress int64 `json:"progress,omitempty"`
-	ScanSessionId string `json:"scan_session_id,omitempty"`
-	StartDate string `json:"start_date,omitempty"`
+	Duration map[string]interface{} `json:"duration,omitempty"`
 	Status string `json:"status,omitempty"`
-	Threat int64 `json:"threat,omitempty"`
+	WebScanStatus map[string]interface{} `json:"web_scan_status,omitempty"`
+	Vulns []ScanAppVuln `json:"vulns,omitempty"`
+	Messages []ScanAppMessage `json:"messages,omitempty"`
 }
