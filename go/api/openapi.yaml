@@ -262,7 +262,7 @@ paths:
       - api_key: []
       summary: delete scan by scanid
     get:
-      operationId: getScanStatus
+      operationId: getScanDetail
       parameters:
       - description: scan task id
         explode: false
@@ -308,7 +308,7 @@ paths:
       summary: stop scan by scanid
   /scans/{scanid}/results/{sessionid}/statistics:
     get:
-      operationId: getStat
+      operationId: getScanStat
       parameters:
       - description: scan task id
         explode: false
@@ -763,7 +763,7 @@ components:
         login:
           credentials:
             password: password
-            enable: true
+            enabled: true
             username: username
           kind: none
         technologies:
@@ -774,7 +774,7 @@ components:
           password: password
           address: address
           port: 0
-          enable: true
+          enabled: true
           username: username
         case_sensitive: case_sensitive
         excluded_hours_id: excluded_hours_id
@@ -788,7 +788,7 @@ components:
         user_agent: user_agent
         authentication:
           password: password
-          enable: true
+          enabled: true
           username: username
         custom_headers:
         - custom_headers
@@ -957,11 +957,11 @@ components:
         profile_id: profile_id
         current_session:
           event_level: 0
-          progress: progress
+          progress: 6
           scan_session_id: scan_session_id
-          threat: 6
+          threat: 1
           start_date: start_date
-          status: status
+          status: scheduled
         manual_intervention: true
         target_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
         scan_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
@@ -1002,71 +1002,151 @@ components:
       required:
       - target_id
       type: object
-    ScanApp:
+    ScanAppTargetInfo:
       example:
-        wvs: '{}'
+        host: host
+        target_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
       properties:
-        wvs:
-          properties:
-            main:
-              properties:
-                messages:
-                  items:
-                    $ref: '#/components/schemas/ScanMessage'
-                  type: array
-                progress:
-                  format: int64
-                  type: integer
-                duration:
-                  type: object
-                web_scan_status:
-                  properties:
-                    location:
-                      format: int64
-                      type: integer
-            hosts:
-              additionalProperties:
-                $ref: '#/components/schemas/ScanHost'
-              type: object
-            status:
-              type: string
-            abort_requested:
-              type: boolean
-            start_date:
-              format: datetime
-              type: string
-            end_date:
-              format: datetime
-              type: string
-            end_deadline:
-              format: datetime
-              type: string
-            event_level:
-              type: object
-    ScanMessage:
+        target_id:
+          format: uuid
+          type: string
+        host:
+          type: string
+      type: object
+    ScanAppVuln:
+      example:
+        serverity: 1
+        vuln_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        target_info:
+          host: host
+          target_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        name: name
+        time: time
       properties:
         time:
           format: datetime
           type: string
-        target_info:
-          properties:
-            target_id:
-              format: uuid
-              type: string
-            host:
-              type: string
-          required:
-          - host
-          - target_id
-        kind:
+        name:
           type: string
-        data:
+        vuln_id:
+          format: uuid
+          type: string
+        serverity:
+          format: int64
+          type: integer
+        target_info:
+          $ref: '#/components/schemas/ScanAppTargetInfo'
+    ScanAppWvs:
+      example:
+        end_date: end_date
+        hosts:
+          key:
+            is_starting_host: true
+            target_info: '{}'
+            aborted: true
+            aborted_reason: aborted_reason
+            host: host
+            external_hosts:
+            - external_hosts
+            - external_hosts
+            web_scan_status: '{}'
+        end_deadline: end_deadline
+        event_level: event_level
+        main:
+          duration: 6
+          vulns:
+          - serverity: 1
+            vuln_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            target_info:
+              host: host
+              target_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            name: name
+            time: time
+          - serverity: 1
+            vuln_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            target_info:
+              host: host
+              target_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            name: name
+            time: time
+          progress: 0
+          messages:
+          - data: data
+            level: 5
+            kind: kind
+            target_info:
+              host: host
+              target_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            time: time
+          - data: data
+            level: 5
+            kind: kind
+            target_info:
+              host: host
+              target_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            time: time
+          web_scan_status: '{}'
+          status: status
+        abort_requested: true
+        status: status
+        start_date: start_date
+      properties:
+        status:
+          type: string
+        abort_requested:
+          type: boolean
+        start_date:
+          format: datetime
+          type: string
+        end_date:
+          format: datetime
+          type: string
+        end_deadline:
+          format: datetime
+          type: string
+        event_level:
+          type: string
+        hosts:
+          additionalProperties:
+            $ref: '#/components/schemas/ScanAppHost'
+          description: key is target uuid
+          type: object
+        main:
+          $ref: '#/components/schemas/ScanAppWvs_main'
+      type: object
+    ScanAppMessage:
+      example:
+        data: data
+        level: 5
+        kind: kind
+        target_info:
+          host: host
+          target_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        time: time
+      properties:
+        time:
+          format: datetime
+          type: string
+        kind:
           type: string
         level:
           format: int64
           type: integer
-      type: object
-    ScanHost:
+        data:
+          type: string
+        target_info:
+          $ref: '#/components/schemas/ScanAppTargetInfo'
+    ScanAppHost:
+      example:
+        is_starting_host: true
+        target_info: '{}'
+        aborted: true
+        aborted_reason: aborted_reason
+        host: host
+        external_hosts:
+        - external_hosts
+        - external_hosts
+        web_scan_status: '{}'
       properties:
         host:
           type: string
@@ -1095,18 +1175,131 @@ components:
             server:
               type: string
         aborted:
-          type: object
+          type: boolean
         aborted_reason:
-          type: object
+          type: string
         external_hosts:
           items:
             type: string
           type: array
+    ScanApp:
+      example:
+        wvs:
+          end_date: end_date
+          hosts:
+            key:
+              is_starting_host: true
+              target_info: '{}'
+              aborted: true
+              aborted_reason: aborted_reason
+              host: host
+              external_hosts:
+              - external_hosts
+              - external_hosts
+              web_scan_status: '{}'
+          end_deadline: end_deadline
+          event_level: event_level
+          main:
+            duration: 6
+            vulns:
+            - serverity: 1
+              vuln_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+              target_info:
+                host: host
+                target_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+              name: name
+              time: time
+            - serverity: 1
+              vuln_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+              target_info:
+                host: host
+                target_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+              name: name
+              time: time
+            progress: 0
+            messages:
+            - data: data
+              level: 5
+              kind: kind
+              target_info:
+                host: host
+                target_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+              time: time
+            - data: data
+              level: 5
+              kind: kind
+              target_info:
+                host: host
+                target_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+              time: time
+            web_scan_status: '{}'
+            status: status
+          abort_requested: true
+          status: status
+          start_date: start_date
+      properties:
+        wvs:
+          $ref: '#/components/schemas/ScanAppWvs'
     ScanStat:
       example:
         scanning_app:
-          wvs: '{}'
-        serverity_counts: '{}'
+          wvs:
+            end_date: end_date
+            hosts:
+              key:
+                is_starting_host: true
+                target_info: '{}'
+                aborted: true
+                aborted_reason: aborted_reason
+                host: host
+                external_hosts:
+                - external_hosts
+                - external_hosts
+                web_scan_status: '{}'
+            end_deadline: end_deadline
+            event_level: event_level
+            main:
+              duration: 6
+              vulns:
+              - serverity: 1
+                vuln_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+                target_info:
+                  host: host
+                  target_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+                name: name
+                time: time
+              - serverity: 1
+                vuln_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+                target_info:
+                  host: host
+                  target_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+                name: name
+                time: time
+              progress: 0
+              messages:
+              - data: data
+                level: 5
+                kind: kind
+                target_info:
+                  host: host
+                  target_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+                time: time
+              - data: data
+                level: 5
+                kind: kind
+                target_info:
+                  host: host
+                  target_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+                time: time
+              web_scan_status: '{}'
+              status: status
+            abort_requested: true
+            status: status
+            start_date: start_date
+        serverity_counts:
+          high: 5
+          low: 7
+          medium: 2
         status: status
       properties:
         status:
@@ -1114,7 +1307,7 @@ components:
         scanning_app:
           $ref: '#/components/schemas/ScanApp'
         serverity_counts:
-          type: object
+          $ref: '#/components/schemas/ScanStat_serverity_counts'
     ApiResponse:
       properties:
         code:
@@ -1129,10 +1322,10 @@ components:
       description: http Authentication(Basic, Digest, NTLM and Kerberos (Windows only)
       example:
         password: password
-        enable: true
+        enabled: true
         username: username
       properties:
-        enable:
+        enabled:
           type: boolean
         username:
           type: string
@@ -1151,10 +1344,10 @@ components:
     TargetConfig_login_credentials:
       example:
         password: password
-        enable: true
+        enabled: true
         username: username
       properties:
-        enable:
+        enabled:
           type: boolean
         username:
           type: string
@@ -1164,7 +1357,7 @@ components:
       example:
         credentials:
           password: password
-          enable: true
+          enabled: true
           username: username
         kind: none
       properties:
@@ -1187,10 +1380,10 @@ components:
         password: password
         address: address
         port: 0
-        enable: true
+        enabled: true
         username: username
       properties:
-        enable:
+        enabled:
           type: boolean
         address:
           format: ip
@@ -1223,23 +1416,35 @@ components:
     ScanDetail_current_session:
       example:
         event_level: 0
-        progress: progress
+        progress: 6
         scan_session_id: scan_session_id
-        threat: 6
+        threat: 1
         start_date: start_date
-        status: status
+        status: scheduled
       properties:
         event_level:
           format: int64
           type: integer
         progress:
-          type: string
+          format: int64
+          type: integer
         scan_session_id:
           type: string
         start_date:
           format: datetime
           type: string
         status:
+          enum:
+          - scheduled
+          - queued
+          - starting
+          - processing
+          - aborting
+          - aborted
+          - pausing
+          - paused
+          - completed
+          - failed
           type: string
         threat:
           format: int64
@@ -1249,6 +1454,88 @@ components:
         target_id:
           format: string
           type: string
+    ScanAppWvs_main:
+      example:
+        duration: 6
+        vulns:
+        - serverity: 1
+          vuln_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          target_info:
+            host: host
+            target_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          name: name
+          time: time
+        - serverity: 1
+          vuln_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          target_info:
+            host: host
+            target_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          name: name
+          time: time
+        progress: 0
+        messages:
+        - data: data
+          level: 5
+          kind: kind
+          target_info:
+            host: host
+            target_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          time: time
+        - data: data
+          level: 5
+          kind: kind
+          target_info:
+            host: host
+            target_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          time: time
+        web_scan_status: '{}'
+        status: status
+      properties:
+        progress:
+          format: int64
+          type: integer
+        duration:
+          format: int64
+          type: integer
+        status:
+          type: string
+        web_scan_status:
+          properties:
+            location:
+              format: int64
+              type: integer
+            avg_response_time:
+              format: int64
+              type: integer
+            max_response_time:
+              format: int64
+              type: integer
+            request_count:
+              format: int64
+              type: integer
+        vulns:
+          items:
+            $ref: '#/components/schemas/ScanAppVuln'
+          type: array
+        messages:
+          items:
+            $ref: '#/components/schemas/ScanAppMessage'
+          type: array
+    ScanStat_serverity_counts:
+      example:
+        high: 5
+        low: 7
+        medium: 2
+      properties:
+        high:
+          format: int64
+          type: integer
+        medium:
+          format: int64
+          type: integer
+        low:
+          format: int64
+          type: integer
   securitySchemes:
     api_key:
       in: header

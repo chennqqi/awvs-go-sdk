@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Progress** | **int64** |  | [optional] 
-**Duration** | [**map[string]interface{}**](.md) |  | [optional] 
+**Duration** | **int64** |  | [optional] 
 **Status** | **string** |  | [optional] 
 **WebScanStatus** | **map[string]interface{}** |  | [optional] 
 **Vulns** | [**[]ScanAppVuln**](ScanAppVuln.md) |  | [optional] 
