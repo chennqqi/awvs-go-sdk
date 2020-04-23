@@ -40,11 +40,11 @@ Class | Method | HTTP request | Description
 *DefaultApi* | [**DeleteTarget**](docs/DefaultApi.md#deletetarget) | **Delete** /targets/{targetid} | get target by id
 *DefaultApi* | [**GetInfo**](docs/DefaultApi.md#getinfo) | **Get** /info | get awvs info
 *DefaultApi* | [**GetMe**](docs/DefaultApi.md#getme) | **Get** /me | get user info
+*DefaultApi* | [**GetScanDetail**](docs/DefaultApi.md#getscandetail) | **Get** /scans/{scanid} | get scan status by scanid
 *DefaultApi* | [**GetScanProfiles**](docs/DefaultApi.md#getscanprofiles) | **Get** /scanning_profiles | get scan profile
 *DefaultApi* | [**GetScanReports**](docs/DefaultApi.md#getscanreports) | **Get** /reports/{scanid} | get scan reports by scanid
-*DefaultApi* | [**GetScanStatus**](docs/DefaultApi.md#getscanstatus) | **Get** /scans/{scanid} | get scan status by scanid
+*DefaultApi* | [**GetScanStat**](docs/DefaultApi.md#getscanstat) | **Get** /scans/{scanid}/results/{sessionid}/statistics | get stat by scanid,sessionid
 *DefaultApi* | [**GetScans**](docs/DefaultApi.md#getscans) | **Get** /scans | get scan list
-*DefaultApi* | [**GetStat**](docs/DefaultApi.md#getstat) | **Get** /scans/{scanid}/results/{sessionid}/statistics | get stat by scanid,sessionid
 *DefaultApi* | [**GetTarget**](docs/DefaultApi.md#gettarget) | **Get** /targets/{targetid} | get target by id
 *DefaultApi* | [**GetTargetConfig**](docs/DefaultApi.md#gettargetconfig) | **Get** /targets/{targetid}/configuration | get target by id
 *DefaultApi* | [**GetTargets**](docs/DefaultApi.md#gettargets) | **Get** /targets | get all targets
@@ -69,11 +69,14 @@ Class | Method | HTTP request | Description
  - [Profiles](docs/Profiles.md)
  - [Scan](docs/Scan.md)
  - [ScanApp](docs/ScanApp.md)
+ - [ScanAppVuln](docs/ScanAppVuln.md)
+ - [ScanAppVulnTargetInfo](docs/ScanAppVulnTargetInfo.md)
  - [ScanDetail](docs/ScanDetail.md)
  - [ScanDetailCurrentSession](docs/ScanDetailCurrentSession.md)
  - [ScanHost](docs/ScanHost.md)
  - [ScanMessage](docs/ScanMessage.md)
  - [ScanStat](docs/ScanStat.md)
+ - [ScanStatServerityCounts](docs/ScanStatServerityCounts.md)
  - [Scans](docs/Scans.md)
  - [ScansItem](docs/ScansItem.md)
  - [Schedual](docs/Schedual.md)

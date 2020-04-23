@@ -9,9 +9,8 @@
  */
 
 package openapi
-// ScanStat struct for ScanStat
-type ScanStat struct {
-	Status string `json:"status,omitempty"`
-	ScanningApp ScanApp `json:"scanning_app,omitempty"`
-	ServerityCounts ScanStatServerityCounts `json:"serverity_counts,omitempty"`
+// ScanAppVulnTargetInfo struct for ScanAppVulnTargetInfo
+type ScanAppVulnTargetInfo struct {
+	TargetId string `json:"target_id,omitempty"`
+	Host string `json:"host,omitempty"`
 }

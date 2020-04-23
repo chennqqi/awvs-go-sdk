@@ -9,9 +9,9 @@
  */
 
 package openapi
-// ScanStat struct for ScanStat
-type ScanStat struct {
-	Status string `json:"status,omitempty"`
-	ScanningApp ScanApp `json:"scanning_app,omitempty"`
-	ServerityCounts ScanStatServerityCounts `json:"serverity_counts,omitempty"`
+// ScanStatServerityCounts struct for ScanStatServerityCounts
+type ScanStatServerityCounts struct {
+	High int64 `json:"high,omitempty"`
+	Medium int64 `json:"medium,omitempty"`
+	Low int64 `json:"low,omitempty"`
 }

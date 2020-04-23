@@ -1,7 +1,7 @@
 /*
  * AWVS12 client api
  *
- * Awvs12 client api [http://swagger.io](http://swagger.io) or on [irc.freenode.net, #swagger](http://swagger.io/irc/).
+ * Awvs12 client api [http://swagger.io](http://swagger.io) or on [irc.freenode.net, #swagger](http://swagger.io/irc/). 
  *
  * API version: 1.0.0
  * Contact: apiteam@swagger.io
@@ -133,7 +133,7 @@ func (a *DefaultApiService) DeleteScan(ctx _context.Context, scanid string) (*_n
 
 	// create path and map variables
 	localVarPath := a.client.cfg.BasePath + "/scans/{scanid}"
-	localVarPath = strings.Replace(localVarPath, "{"+"scanid"+"}", _neturl.QueryEscape(parameterToString(scanid, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"scanid"+"}", _neturl.QueryEscape(parameterToString(scanid, "")) , -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
@@ -408,7 +408,95 @@ func (a *DefaultApiService) GetMe(ctx _context.Context) (Me, *_nethttp.Response,
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if ctx != nil {
+		// API Key Authentication
+		if auth, ok := ctx.Value(ContextAPIKey).(APIKey); ok {
+			var key string
+			if auth.Prefix != "" {
+				key = auth.Prefix + " " + auth.Key
+			} else {
+				key = auth.Key
+			}
+			localVarHeaderParams["X-Auth"] = key
+		}
+	}
+	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
 
+	localVarHTTPResponse, err := a.client.callAPI(r)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+/*
+GetScanDetail get scan status by scanid
+ * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ * @param scanid scan task id
+@return ScanDetail
+*/
+func (a *DefaultApiService) GetScanDetail(ctx _context.Context, scanid string) (ScanDetail, *_nethttp.Response, error) {
+	var (
+		localVarHTTPMethod   = _nethttp.MethodGet
+		localVarPostBody     interface{}
+		localVarFormFileName string
+		localVarFileName     string
+		localVarFileBytes    []byte
+		localVarReturnValue  ScanDetail
+	)
+
+	// create path and map variables
+	localVarPath := a.client.cfg.BasePath + "/scans/{scanid}"
+	localVarPath = strings.Replace(localVarPath, "{"+"scanid"+"}", _neturl.QueryEscape(parameterToString(scanid, "")) , -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := _neturl.Values{}
+	localVarFormParams := _neturl.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
 	if ctx != nil {
 		// API Key Authentication
 		if auth, ok := ctx.Value(ContextAPIKey).(APIKey); ok {
@@ -559,7 +647,7 @@ func (a *DefaultApiService) GetScanReports(ctx _context.Context, scanid string) 
 
 	// create path and map variables
 	localVarPath := a.client.cfg.BasePath + "/reports/{scanid}"
-	localVarPath = strings.Replace(localVarPath, "{"+"scanid"+"}", _neturl.QueryEscape(parameterToString(scanid, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"scanid"+"}", _neturl.QueryEscape(parameterToString(scanid, "")) , -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
@@ -622,24 +710,27 @@ func (a *DefaultApiService) GetScanReports(ctx _context.Context, scanid string) 
 }
 
 /*
-GetScanStatus get scan status by scanid
+GetScanStat get stat by scanid,sessionid
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param scanid scan task id
-@return ScanDetail
+ * @param sessionid scan session id
+@return ScanStat
 */
-func (a *DefaultApiService) GetScanStatus(ctx _context.Context, scanid string) (ScanDetail, *_nethttp.Response, error) {
+func (a *DefaultApiService) GetScanStat(ctx _context.Context, scanid string, sessionid string) (ScanStat, *_nethttp.Response, error) {
 	var (
 		localVarHTTPMethod   = _nethttp.MethodGet
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  ScanDetail
+		localVarReturnValue  ScanStat
 	)
 
 	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/scans/{scanid}"
-	localVarPath = strings.Replace(localVarPath, "{"+"scanid"+"}", _neturl.QueryEscape(parameterToString(scanid, "")), -1)
+	localVarPath := a.client.cfg.BasePath + "/scans/{scanid}/results/{sessionid}/statistics"
+	localVarPath = strings.Replace(localVarPath, "{"+"scanid"+"}", _neturl.QueryEscape(parameterToString(scanid, "")) , -1)
+
+	localVarPath = strings.Replace(localVarPath, "{"+"sessionid"+"}", _neturl.QueryEscape(parameterToString(sessionid, "")) , -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
@@ -797,98 +888,6 @@ func (a *DefaultApiService) GetScans(ctx _context.Context) (Scans, *_nethttp.Res
 }
 
 /*
-GetStat get stat by scanid,sessionid
- * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param scanid scan task id
- * @param sessionid scan session id
-@return ScanStat
-*/
-func (a *DefaultApiService) GetStat(ctx _context.Context, scanid string, sessionid string) (ScanStat, *_nethttp.Response, error) {
-	var (
-		localVarHTTPMethod   = _nethttp.MethodGet
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  ScanStat
-	)
-
-	// create path and map variables
-	localVarPath := a.client.cfg.BasePath + "/scans/{scanid}/results/{sessionid}/statistics"
-	localVarPath = strings.Replace(localVarPath, "{"+"scanid"+"}", _neturl.QueryEscape(parameterToString(scanid, "")), -1)
-
-	localVarPath = strings.Replace(localVarPath, "{"+"sessionid"+"}", _neturl.QueryEscape(parameterToString(sessionid, "")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := _neturl.Values{}
-	localVarFormParams := _neturl.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	if ctx != nil {
-		// API Key Authentication
-		if auth, ok := ctx.Value(ContextAPIKey).(APIKey); ok {
-			var key string
-			if auth.Prefix != "" {
-				key = auth.Prefix + " " + auth.Key
-			} else {
-				key = auth.Key
-			}
-			localVarHeaderParams["X-Auth"] = key
-		}
-	}
-	r, err := a.client.prepareRequest(ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(r)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := _ioutil.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-/*
 GetTarget get target by id
  * @param ctx _context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param targetid target id
@@ -906,7 +905,7 @@ func (a *DefaultApiService) GetTarget(ctx _context.Context, targetid string) (Ta
 
 	// create path and map variables
 	localVarPath := a.client.cfg.BasePath + "/targets/{targetid}"
-	localVarPath = strings.Replace(localVarPath, "{"+"targetid"+"}", _neturl.QueryEscape(parameterToString(targetid, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"targetid"+"}", _neturl.QueryEscape(parameterToString(targetid, "")) , -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
@@ -1169,9 +1168,9 @@ func (a *DefaultApiService) GetVuln(ctx _context.Context, scanid string, session
 
 	// create path and map variables
 	localVarPath := a.client.cfg.BasePath + "/scans/{scanid}/results/{sessionid}/vulnerabilities"
-	localVarPath = strings.Replace(localVarPath, "{"+"scanid"+"}", _neturl.QueryEscape(parameterToString(scanid, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"scanid"+"}", _neturl.QueryEscape(parameterToString(scanid, "")) , -1)
 
-	localVarPath = strings.Replace(localVarPath, "{"+"sessionid"+"}", _neturl.QueryEscape(parameterToString(sessionid, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"sessionid"+"}", _neturl.QueryEscape(parameterToString(sessionid, "")) , -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
@@ -1487,7 +1486,7 @@ func (a *DefaultApiService) StopScan(ctx _context.Context, scanid string) (*_net
 
 	// create path and map variables
 	localVarPath := a.client.cfg.BasePath + "/scans/{scanid}/abort"
-	localVarPath = strings.Replace(localVarPath, "{"+"scanid"+"}", _neturl.QueryEscape(parameterToString(scanid, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"scanid"+"}", _neturl.QueryEscape(parameterToString(scanid, "")) , -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := _neturl.Values{}
