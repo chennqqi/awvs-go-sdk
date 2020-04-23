@@ -11,10 +11,10 @@
 package openapi
 // ScanAppWvsMain struct for ScanAppWvsMain
 type ScanAppWvsMain struct {
+	WebScanStatus ScanAppWvsMainStatus `json:"web_scan_status,omitempty"`
 	Progress int64 `json:"progress,omitempty"`
 	Duration int64 `json:"duration,omitempty"`
 	Status string `json:"status,omitempty"`
-	WebScanStatus map[string]interface{} `json:"web_scan_status,omitempty"`
 	Vulns []ScanAppVuln `json:"vulns,omitempty"`
 	Messages []ScanAppMessage `json:"messages,omitempty"`
 }

@@ -1015,7 +1015,7 @@ components:
       type: object
     ScanAppVuln:
       example:
-        serverity: 1
+        serverity: 7
         vuln_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
         target_info:
           host: host
@@ -1036,6 +1036,25 @@ components:
           type: integer
         target_info:
           $ref: '#/components/schemas/ScanAppTargetInfo'
+    ScanAppWvsMainStatus:
+      example:
+        max_response_time: 1
+        location: 0
+        avg_response_time: 6
+        request_count: 5
+      properties:
+        location:
+          format: int64
+          type: integer
+        avg_response_time:
+          format: int64
+          type: integer
+        max_response_time:
+          format: int64
+          type: integer
+        request_count:
+          format: int64
+          type: integer
     ScanAppWvs:
       example:
         end_date: end_date
@@ -1053,39 +1072,43 @@ components:
         end_deadline: end_deadline
         event_level: event_level
         main:
-          duration: 6
+          duration: 2
           vulns:
-          - serverity: 1
+          - serverity: 7
             vuln_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
             target_info:
               host: host
               target_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
             name: name
             time: time
-          - serverity: 1
+          - serverity: 7
             vuln_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
             target_info:
               host: host
               target_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
             name: name
             time: time
-          progress: 0
+          progress: 5
           messages:
           - data: data
-            level: 5
+            level: 9
             kind: kind
             target_info:
               host: host
               target_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
             time: time
           - data: data
-            level: 5
+            level: 9
             kind: kind
             target_info:
               host: host
               target_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
             time: time
-          web_scan_status: '{}'
+          web_scan_status:
+            max_response_time: 1
+            location: 0
+            avg_response_time: 6
+            request_count: 5
           status: status
         abort_requested: true
         status: status
@@ -1117,7 +1140,7 @@ components:
     ScanAppMessage:
       example:
         data: data
-        level: 5
+        level: 9
         kind: kind
         target_info:
           host: host
@@ -1200,39 +1223,43 @@ components:
           end_deadline: end_deadline
           event_level: event_level
           main:
-            duration: 6
+            duration: 2
             vulns:
-            - serverity: 1
+            - serverity: 7
               vuln_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
               target_info:
                 host: host
                 target_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
               name: name
               time: time
-            - serverity: 1
+            - serverity: 7
               vuln_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
               target_info:
                 host: host
                 target_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
               name: name
               time: time
-            progress: 0
+            progress: 5
             messages:
             - data: data
-              level: 5
+              level: 9
               kind: kind
               target_info:
                 host: host
                 target_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
               time: time
             - data: data
-              level: 5
+              level: 9
               kind: kind
               target_info:
                 host: host
                 target_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
               time: time
-            web_scan_status: '{}'
+            web_scan_status:
+              max_response_time: 1
+              location: 0
+              avg_response_time: 6
+              request_count: 5
             status: status
           abort_requested: true
           status: status
@@ -1259,46 +1286,50 @@ components:
             end_deadline: end_deadline
             event_level: event_level
             main:
-              duration: 6
+              duration: 2
               vulns:
-              - serverity: 1
+              - serverity: 7
                 vuln_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
                 target_info:
                   host: host
                   target_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
                 name: name
                 time: time
-              - serverity: 1
+              - serverity: 7
                 vuln_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
                 target_info:
                   host: host
                   target_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
                 name: name
                 time: time
-              progress: 0
+              progress: 5
               messages:
               - data: data
-                level: 5
+                level: 9
                 kind: kind
                 target_info:
                   host: host
                   target_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
                 time: time
               - data: data
-                level: 5
+                level: 9
                 kind: kind
                 target_info:
                   host: host
                   target_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
                 time: time
-              web_scan_status: '{}'
+              web_scan_status:
+                max_response_time: 1
+                location: 0
+                avg_response_time: 6
+                request_count: 5
               status: status
             abort_requested: true
             status: status
             start_date: start_date
         serverity_counts:
-          high: 5
-          low: 7
+          high: 3
+          low: 4
           medium: 2
         status: status
       properties:
@@ -1456,41 +1487,47 @@ components:
           type: string
     ScanAppWvs_main:
       example:
-        duration: 6
+        duration: 2
         vulns:
-        - serverity: 1
+        - serverity: 7
           vuln_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
           target_info:
             host: host
             target_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
           name: name
           time: time
-        - serverity: 1
+        - serverity: 7
           vuln_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
           target_info:
             host: host
             target_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
           name: name
           time: time
-        progress: 0
+        progress: 5
         messages:
         - data: data
-          level: 5
+          level: 9
           kind: kind
           target_info:
             host: host
             target_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
           time: time
         - data: data
-          level: 5
+          level: 9
           kind: kind
           target_info:
             host: host
             target_id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
           time: time
-        web_scan_status: '{}'
+        web_scan_status:
+          max_response_time: 1
+          location: 0
+          avg_response_time: 6
+          request_count: 5
         status: status
       properties:
+        web_scan_status:
+          $ref: '#/components/schemas/ScanAppWvsMainStatus'
         progress:
           format: int64
           type: integer
@@ -1499,20 +1536,6 @@ components:
           type: integer
         status:
           type: string
-        web_scan_status:
-          properties:
-            location:
-              format: int64
-              type: integer
-            avg_response_time:
-              format: int64
-              type: integer
-            max_response_time:
-              format: int64
-              type: integer
-            request_count:
-              format: int64
-              type: integer
         vulns:
           items:
             $ref: '#/components/schemas/ScanAppVuln'
@@ -1523,8 +1546,8 @@ components:
           type: array
     ScanStat_serverity_counts:
       example:
-        high: 5
-        low: 7
+        high: 3
+        low: 4
         medium: 2
       properties:
         high:

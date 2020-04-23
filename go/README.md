@@ -75,6 +75,7 @@ Class | Method | HTTP request | Description
  - [ScanAppVuln](docs/ScanAppVuln.md)
  - [ScanAppWvs](docs/ScanAppWvs.md)
  - [ScanAppWvsMain](docs/ScanAppWvsMain.md)
+ - [ScanAppWvsMainStatus](docs/ScanAppWvsMainStatus.md)
  - [ScanDetail](docs/ScanDetail.md)
  - [ScanDetailCurrentSession](docs/ScanDetailCurrentSession.md)
  - [ScanStat](docs/ScanStat.md)

@@ -4,10 +4,10 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**WebScanStatus** | [**ScanAppWvsMainStatus**](ScanAppWvsMainStatus.md) |  | [optional] 
 **Progress** | **int64** |  | [optional] 
 **Duration** | **int64** |  | [optional] 
 **Status** | **string** |  | [optional] 
-**WebScanStatus** | **map[string]interface{}** |  | [optional] 
 **Vulns** | [**[]ScanAppVuln**](ScanAppVuln.md) |  | [optional] 
 **Messages** | [**[]ScanAppMessage**](ScanAppMessage.md) |  | [optional] 
 
